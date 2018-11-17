@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <%set DataTable articlesList=get_article_list(channel,Int32.Parse({request[category_id]}) , pagesize, page, "status=0", out totalcount, out pagelist, "article_list", Int32.Parse({request[category_id]}), "__id__")%>
+    <%foreach(DataRow dr in articlesList.Rows)%>
+    <p>
+        <a href="<%linkurl("article_show",{dr[id]})%>">{dr[title]}</a>
+        <img src="{dr[img_url]}" width="50px">
+    </p>
+   
+    <%/foreach%>
+</body>
+</html>

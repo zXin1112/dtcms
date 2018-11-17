@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <%set DataTable dt=get_category_child_list("article",0 )%>
+    <ul>
+        <%foreach(DataRow dr in dt.Rows)%>
+        <li>
+            <a href="<%linkurl("article_list",Int32.Parse({dr[id]}))%>">{dr[title]}</a>
+        </li>
+        <%/foreach%>
+    </ul>
+</body>
+</html>

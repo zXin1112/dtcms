@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="<%templateskin%>/css/index.css" rel="stylesheet" />
+    <script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>添加的标题</h1>
+        <ul>
+            <%set DataTable dt=get_category_child_list("indexsetting", 0)%>
+            <%foreach(DataRow dr in dt.Rows)%>
+
+            <li>
+                二级类别ID：{dr[id]}
+                二级类别名称：{dr[title]}
+
+                <ul>
+                    <%set DataTable dt2=get_category_child_list("indexsetting", {strtoint({dr[id]})})%>
+
+                    <%foreach(DataRow dr2 in dt2.Rows)%>
+                    <li>
+                        三级类别ID：{dr2[id]}
+                        三级类别名称：{dr2[title]}
+                        <ul>
+                            <%set DataTable dt3=get_category_child_list("indexsetting", {strtoint({dr2[id]})})%>
+
+                            <%foreach(DataRow dr3 in dt3.Rows)%>
+                            <li>
+                                四级类别ID：{dr3[id]}
+                                四级类别名称：{dr3[title]}
+                            </li>
+                            <%/foreach%>
+                        </ul>
+                    </li> 
+                    <%/foreach%>
+                </ul>
+            </li>
+            <%/foreach%>
+        </ul>
+    </header>
+    <section>
+        <div style="width:960px;height:800px;margin:0 auto; text-align:center; overflow: hidden;">
+            <h2>  <a href="<%linkurl("column_test_right",0,"1")%>">栏目列表</a></h2>
+            <ul class="list_1">
+                <%set DataTable List_1=get_category_child_list("column_test", 0)%>
+                <%foreach(DataRow List_1_child in List_1.Rows)%>
+                <li>
+                    <a href="<%linkurl("column_test_list",{List_1_child[id]})%>">{List_1_child[title]}</a>
+                    <%set DataTable List_2=get_category_child_list("column_test", {strtoint({List_1_child[id]})})%>              
+                    <ul class="List_2">
+                        <%foreach(DataRow List_2_child in List_2.Rows)%>
+                        <li><a href="<%linkurl("column_test_list",{List_2_child[id]})%>">{List_2_child[title]}</a></li>
+                        <%/foreach%>
+                    </ul>
+                </li>
+                <%/foreach%>
+            </ul>
+        </div>
+        
+    </section>
+    <section>
+        <%set DataTable dtIndexSetting=get_article_list("indexsetting", 1, "status=0")%>
+        <ul>
+            <%foreach(DataRow drIndexSetting in dtIndexSetting.Rows)%>
+            <li>
+                <h1>{drIndexSetting[title]}</h1>
+                <h2>图片：</h2>
+                <p><img src="{drIndexSetting[img_url]}" /></p>
+                <p>摘要：{drIndexSetting[zhaiyao]}</p>
+                <p>内容：{drIndexSetting[content]}</p>
+                <span>添加时间：{drIndexSetting[add_time]}</span>
+            </li>
+            <%/foreach%>
+        </ul>
+    </section>
+    <section>
+        <h2>系统配置信息</h2>
+        <p>主站名称：{config.webname}</p>
+        <p>公司名称：{config.webcompany}</p>
+        <p>公司地址:{config.webaddress}  </p>
+        <p> 	管理员邮箱 :{config.webmail} </p>
+    </section>
+    <section>
+        <h2>站点配置信息</h2>
+        <p> 	网站名称 {site.name} </p>
+        <p> 	网站域名 {site.domain} </p>
+        <p> 	公司名称 {site.company} </p>
+    </section>
+    <section>
+        <h2>跳转新闻频道</h2>
+        <nav>
+            <%set DataTable dt1=get_category_child_list("article",0 )%>
+            <ul>
+                <%foreach(DataRow dr in dt1.Rows)%>
+                <li>
+                    <a href="<%linkurl(" article_list",Int32.Parse({dr[id]}))%>">{dr[title]}</a>
+                </li>
+                <%/foreach%>
+            </ul>
+        </nav>
+    </section>
+
+</body>
+</html>

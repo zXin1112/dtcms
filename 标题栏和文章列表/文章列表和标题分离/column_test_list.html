@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>列表页</title>
+    <link href="<%templateskin%>/css/column_test_list.css" rel="stylesheet" />
+</head>
+<body>
+    <%=get_category_menu("column_test", {strtoint({request[category_id]})})%>
+    <%set DataTable List=get_article_list("column_test", Int32.Parse({request[category_id]}), pagesize, page, "status=0", out totalcount, out pagelist, "column_test_list", Int32.Parse({request[category_id]}), "__id__")%>
+    <%foreach(DataRow List_article in List.Rows)%>
+    <div>
+        <a href="<%linkurl("column_test_show",{List_article[id]})%>">
+            <img src="{List_article[img_url]}" width="200px" style="display:inline-block" />
+            <ul style="display:inline-block;position:absolute;top:3">
+                <li>标题： {List_article[title]}</li>
+                <li> 点击数：{List_article[click]}</li>
+                <li> 摘要：{List_article[zhaiyao]}</li>
+            </ul>
+        </a>
+
+    </div>
+    <%/foreach%>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿ 
+<div>
+
+    <%set DataTable List_1=get_category_child_list("column_test", 0)%>
+    <%foreach(DataRow List_1_child in List_1.Rows)%>
+    <ul>
+        <li>
+            <a href="<%linkurl("column_test_right",{List_1_child[id]})%>"> {List_1_child[title]}</a>
+          
+            <%set DataTable List_2=get_category_child_list("column_test", {strtoint({List_1_child[id]})})%>
+            <ul class="List_2">
+                <%foreach(DataRow List_2_child in List_2.Rows)%>
+                <li><a href="<%linkurl("column_test_right",{List_2_child[id]})%>">{List_2_child[title]}</a></li>
+                <%/foreach%>
+            </ul>
+        </li>
+    </ul>
+
+    <%/foreach%>
+</div>

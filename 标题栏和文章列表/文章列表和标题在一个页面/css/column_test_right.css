@@ -1,0 +1,9 @@
+﻿.test_content {
+    width:960px;
+    height:500px;
+    border:1px solid black;
+    display:inline-block;
+    overflow:auto;
+    position:absolute;
+    right:200px;
+}
